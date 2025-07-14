@@ -200,9 +200,22 @@ def create_training_config(model_path, stage, output_path, dataset_config=None):
         if dataset_config:
             config.update(dataset_config)
         else:
-            # Default to English Wikipedia
+            # Auto-detect language from built datasets
+            cache_dir = Path("data/cache")
+            detected_lang = "en"  # default fallback
+            
+            if cache_dir.exists():
+                # Look for language-specific cache directories
+                for lang_dir in cache_dir.iterdir():
+                    if lang_dir.is_dir() and lang_dir.name.endswith("-data"):
+                        lang_code = lang_dir.name.replace("-data", "")
+                        if len(lang_code) == 2:  # valid language code
+                            detected_lang = lang_code
+                            print(f"Detected language dataset: {detected_lang}")
+                            break
+            
             config["dataset_name"] = "wikimedia/wikipedia"
-            config["dataset_config_name"] = "20231101.en"
+            config["dataset_config_name"] = f"20231101.{detected_lang}"
             
     else:  # supervised
         mntp_path = model_path.replace("-bi-init", "-bi-mntp")

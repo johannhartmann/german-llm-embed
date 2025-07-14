@@ -24,7 +24,7 @@
   "eval_strategy": "steps",
   "data_collator_type": "default",
   "dataset_name": "wikimedia/wikipedia",
-  "dataset_config_name": "20231101.en",
+  "dataset_config_name": "20231101.de",
   "overwrite_output_dir": true,
   "per_device_eval_batch_size": 16
 }
