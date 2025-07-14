@@ -31,7 +31,8 @@ def check_architecture_support(config_name):
         "LlamaConfig": "Llama-based model",
         "MistralConfig": "Mistral-based model", 
         "GemmaConfig": "Gemma-based model",
-        "Qwen2Config": "Qwen2-based model"
+        "Qwen2Config": "Qwen2-based model",
+        "SmolLM3Config": "SmolLM3-based model"
     }
     return config_name in supported, supported.get(config_name, "Unknown architecture")
 
