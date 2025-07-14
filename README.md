@@ -26,13 +26,13 @@ Convert any decoder-only LLM from HuggingFace into a powerful bidirectional text
 ```bash
 # Clone the repository
 git clone <repository>
-cd llm2vec-universal
+cd german-llm-embed
 
-# Run the automated setup (installs dependencies + clones LLM2Vec locally)
+# Run the automated setup (installs dependencies)
 ./setup.sh
 
 # Activate the environment
-conda activate teuken2vec
+conda activate germanembed
 ```
 
 ### 2. Transform Any Model (3 Simple Commands)
@@ -243,7 +243,7 @@ print(similarities)
 ## 📚 Project Structure
 
 ```
-llm2vec-universal/
+german-llm-embed/
 ├── src/scripts/
 │   ├── setup_model.py      # Universal model setup
 │   ├── build_dataset.py    # Multi-language dataset builder
