@@ -11,7 +11,7 @@ Convert any decoder-only LLM from HuggingFace into a powerful bidirectional text
 - **🗣️ 100+ Language Support**: Build datasets for any Wikipedia language
 - **⚡ Zero Configuration**: No config files needed - just model names
 - **💾 Smart Memory Management**: Never run out of GPU memory again
-- **🔧 Architecture Agnostic**: Automatically handles Llama, Mistral, Gemma, Qwen, and more
+- **🔧 Architecture Agnostic**: Automatically handles Llama, Mistral, Gemma, Qwen2, SmolLM3, and more
 
 ## 📋 Requirements
 
@@ -178,6 +178,7 @@ python src/scripts/train.py "data/models/model-bi-init" \
 | Mistral | ✅ Supported | Mistral-7B, Mixtral |
 | Gemma | ✅ Supported | Gemma-2B, Gemma-7B |
 | Qwen2 | ✅ Supported | Qwen2.5 series |
+| SmolLM3 | ✅ Supported | SmolLM3-3B, SmolLM3-1.7B |
 | Others | ⚠️ Experimental | Falls back to standard transformers |
 
 ## 💾 Intelligent GPU Auto-Configuration
@@ -251,7 +252,7 @@ llm2vec-universal/
 │   ├── models/            # Trained models go here
 │   ├── datasets/          # Built datasets
 │   └── cache/             # Temporary files
-└── llm2vec/               # Core LLM2Vec library (auto-cloned)
+└── llm2vec/               # Enhanced LLM2Vec with SmolLM3 support
 ```
 
 

@@ -36,8 +36,7 @@ checkpoints/
 *~
 .DS_Store
 
-# LLM2Vec repo (cloned separately) - removed to include our modified version
-# llm2vec/
+# Our modified LLM2Vec is now part of the repository
 
 # Large files
 *.safetensors
