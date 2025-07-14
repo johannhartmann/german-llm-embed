@@ -50,6 +50,12 @@ def setup_bidirectional_model(model_id, trust_remote_code=False, output_dir=None
     # Import here to ensure environment is set up
     from transformers import AutoConfig, AutoTokenizer
     
+    # Add current directory to Python path for llm2vec import
+    import sys
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(os.path.dirname(script_dir))
+    sys.path.insert(0, project_root)
+    
     try:
         # First, try to load config to check architecture
         print("\nChecking model architecture...")
@@ -82,9 +88,21 @@ def setup_bidirectional_model(model_id, trust_remote_code=False, output_dir=None
         else:
             print(f"✓ Detected {arch_desc} - fully supported!")
         
-        # Get model size info
-        param_count = sum(p.numel() for p in config.to_dict().values() if isinstance(p, int))
-        print(f"\nModel parameters: ~{param_count / 1e9:.1f}B" if param_count > 1e6 else "")
+        # Get model size info from config
+        config_dict = config.to_dict()
+        if 'num_parameters' in config_dict:
+            param_count = config_dict['num_parameters']
+        elif hasattr(config, 'num_parameters'):
+            param_count = config.num_parameters
+        else:
+            # Estimate from hidden size and layers
+            hidden_size = getattr(config, 'hidden_size', 0)
+            num_layers = getattr(config, 'num_hidden_layers', 0)
+            vocab_size = getattr(config, 'vocab_size', 0)
+            param_count = (hidden_size * num_layers * 12 + vocab_size * hidden_size) if hidden_size > 0 else 0
+        
+        if param_count > 1e6:
+            print(f"\nModel parameters: ~{param_count / 1e9:.1f}B")
         
         # Load the model with LLM2Vec
         print("\nLoading model with LLM2Vec...")
