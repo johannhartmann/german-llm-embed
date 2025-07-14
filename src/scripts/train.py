@@ -193,7 +193,7 @@ def create_training_config(model_path, stage, output_path, dataset_config=None):
         config["output_dir"] = f"data/models/{model_name.replace('-bi-init', '-bi-mntp')}"
         config["do_train"] = True
         config["do_eval"] = True
-        config["evaluation_strategy"] = "steps"
+        config["eval_strategy"] = "steps"
         config["data_collator_type"] = "default"
         
         # Dataset configuration
@@ -247,7 +247,8 @@ def run_training(model_path, stage, config_path):
     """Run the actual training"""
     
     # Get project root
-    project_root = Path(__file__).parent
+    # Get the project root (two levels up from src/scripts/)
+    project_root = Path(__file__).parent.parent.parent
     
     # Set up environment
     env = os.environ.copy()
