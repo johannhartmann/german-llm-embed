@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# Models and data
+data/models/*
+!data/models/.gitkeep
+data/cache/*
+!data/cache/.gitkeep
+data/datasets/*.json
+data/datasets/*.txt
+!data/datasets/.gitkeep
+
+# Training outputs
+wandb/
+runs/
+outputs/
+checkpoints/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# LLM2Vec repo (cloned separately)
+llm2vec/
+
+# Large files
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt

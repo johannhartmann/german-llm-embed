@@ -1,0 +1,45 @@
+# PyTorch and Core ML
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Transformers and Model Libraries
+transformers>=4.43.1,<=4.44.2
+peft>=0.4.0
+accelerate>=0.20.0
+bitsandbytes>=0.41.0
+
+# Datasets and Data Processing
+datasets>=2.14.0
+evaluate>=0.4.0
+tokenizers>=0.13.0
+huggingface-hub>=0.16.0
+safetensors>=0.3.0
+
+# Scientific Computing
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+
+# Progress and Logging
+tqdm>=4.65.0
+wandb>=0.15.0
+tensorboard>=2.13.0
+
+# Performance Optimization
+flash-attn>=2.5.0
+
+# Evaluation and Benchmarking
+mteb>=1.14.12
+sentence-transformers>=2.2.0
+
+# LLM2Vec Library (installed locally via setup.sh)
+# git+https://github.com/McGill-NLP/llm2vec.git
+
+# Wikipedia Data Processing
+wikipedia>=1.4.0
+mwparserfromhell>=0.6.0
+
+# Utility Libraries
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
