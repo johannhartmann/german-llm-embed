@@ -235,14 +235,6 @@ print(similarities)
 
 ## 🐛 Troubleshooting
 
-### CUDA Out of Memory
-- The trainer automatically reduces batch size on OOM
-- Manually reduce with: `--batch-size 1 --max-length 128`
-
-### Unsupported Architecture
-- The system will warn you and fall back to standard transformers
-- You can still use the model, but without bidirectional benefits
-
 ### Trust Remote Code Issues
 - Add `--trust-remote-code` flag when needed
 - The system auto-detects and prompts when required
@@ -262,25 +254,6 @@ llm2vec-universal/
 └── llm2vec/               # Core LLM2Vec library (auto-cloned)
 ```
 
-## 🤝 Contributing
-
-Contributions welcome! To add support for new architectures:
-1. Fork the repository
-2. Add architecture support to LLM2Vec
-3. Submit a pull request
-
-## 📄 Citations
-
-If you use this project, please cite:
-
-```bibtex
-@article{llm2vec,
-  title={LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders},
-  author={BehnamGhader, Parishad and Adlakha, Vaibhav and Mosbach, Marius and Bahdanau, Dzmitry and Chapados, Nicolas and Reddy, Siva},
-  journal={arXiv preprint arXiv:2404.05961},
-  year={2024}
-}
-```
 
 ## 📧 Support
 
