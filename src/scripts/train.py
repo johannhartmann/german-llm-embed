@@ -79,10 +79,10 @@ def auto_configure_training(model_path, stage, gpu_memory=None):
             })
         elif model_size <= 7:
             config.update({
-                "per_device_train_batch_size": 32,
-                "gradient_accumulation_steps": 1,
+                "per_device_train_batch_size": 64,
+                "gradient_accumulation_steps": 8,
                 "max_seq_length": 512,
-                "lora_r": 32
+                "lora_r": 16
             })
         else:
             config.update({
@@ -169,11 +169,13 @@ def auto_configure_training(model_path, stage, gpu_memory=None):
             "eval_steps": 2000,  # Reduce eval frequency
             "mlm_probability": 0.2,
             "mask_token_type": "blank",
-            "stop_after_n_steps": 2000,  # For quick testing
+            "stop_after_n_steps": 1000,  # LLM2Vec paper recommendation
             "dataloader_pin_memory": True,
             "dataloader_persistent_workers": True,
             "torch_empty_cache_steps": 4,
-            "optim": "adamw_torch_fused"
+            "optim": "adamw_torch_fused",
+            "max_train_samples": 50000,
+            "streaming": True
         })
     else:  # supervised
         config.update({
