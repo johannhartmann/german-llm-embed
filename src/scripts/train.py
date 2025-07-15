@@ -174,8 +174,7 @@ def auto_configure_training(model_path, stage, gpu_memory=None):
             "dataloader_persistent_workers": True,
             "torch_empty_cache_steps": 4,
             "optim": "adamw_torch_fused",
-            "max_train_samples": 50000,
-            "streaming": True
+            "max_train_samples": 50000
         })
     else:  # supervised
         config.update({
@@ -203,8 +202,7 @@ def create_training_config(model_path, stage, output_path, dataset_config=None):
     if stage == "mntp":
         config["output_dir"] = f"data/models/{model_name.replace('-bi-init', '-bi-mntp')}"
         config["do_train"] = True
-        config["do_eval"] = True
-        config["eval_strategy"] = "steps"
+        config["do_eval"] = False
         config["data_collator_type"] = "default"
         
         # Dataset configuration
@@ -225,8 +223,7 @@ def create_training_config(model_path, stage, output_path, dataset_config=None):
                             print(f"Detected language dataset: {detected_lang}")
                             break
             
-            config["dataset_name"] = "wikimedia/wikipedia"
-            config["dataset_config_name"] = f"20231101.{detected_lang}"
+            config["train_file"] = "data/cache/wikipedia_de_50k.json"
             
     else:  # supervised
         mntp_path = model_path.replace("-bi-init", "-bi-mntp")
