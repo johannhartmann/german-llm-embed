@@ -54,9 +54,14 @@ def auto_configure_training(model_path, stage, gpu_memory=None):
     config = {
         "gradient_checkpointing": True,
         "torch_dtype": "bfloat16",
-        "dataloader_num_workers": 4,
+        "dataloader_num_workers": 8,
         "seed": 42,
-        "report_to": "none"
+        "report_to": "none",
+        "tf32": True,
+        "bf16": True,
+        "attn_implementation": "flash_attention_2",
+        "torch_compile": True,
+        "torch_compile_backend": "inductor"
     }
     
     # Configure based on model size and GPU memory
@@ -74,9 +79,9 @@ def auto_configure_training(model_path, stage, gpu_memory=None):
             })
         elif model_size <= 7:
             config.update({
-                "per_device_train_batch_size": 16,
-                "gradient_accumulation_steps": 2,
-                "max_seq_length": 1024,
+                "per_device_train_batch_size": 32,
+                "gradient_accumulation_steps": 1,
+                "max_seq_length": 512,
                 "lora_r": 32
             })
         else:
@@ -96,9 +101,9 @@ def auto_configure_training(model_path, stage, gpu_memory=None):
             })
         elif model_size <= 7:
             config.update({
-                "per_device_train_batch_size": 8,
-                "gradient_accumulation_steps": 4,
-                "max_seq_length": 512,
+                "per_device_train_batch_size": 16,
+                "gradient_accumulation_steps": 2,
+                "max_seq_length": 256,
                 "lora_r": 16
             })
         else:
@@ -161,10 +166,14 @@ def auto_configure_training(model_path, stage, gpu_memory=None):
             "warmup_steps": 100,
             "logging_steps": 50,
             "save_steps": 1000,
-            "eval_steps": 500,
+            "eval_steps": 2000,  # Reduce eval frequency
             "mlm_probability": 0.2,
             "mask_token_type": "blank",
-            "stop_after_n_steps": 2000  # For quick testing
+            "stop_after_n_steps": 2000,  # For quick testing
+            "dataloader_pin_memory": True,
+            "dataloader_persistent_workers": True,
+            "torch_empty_cache_steps": 4,
+            "optim": "adamw_torch_fused"
         })
     else:  # supervised
         config.update({
@@ -266,6 +275,7 @@ def run_training(model_path, stage, config_path):
     # Set up environment
     env = os.environ.copy()
     env["PYTHONPATH"] = f"{project_root}/llm2vec:{env.get('PYTHONPATH', '')}"
+    env["TOKENIZERS_PARALLELISM"] = "false"
     
     if stage == "mntp":
         script = project_root / "llm2vec/experiments/run_mntp.py"
